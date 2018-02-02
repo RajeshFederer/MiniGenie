@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.post('/', (req, res) =>{
+    console.log('ACTIOn NAME ', req.body.result.action);
     return actions[req.body.result.action](req, res);
 });
 

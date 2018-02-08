@@ -11,7 +11,10 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.post('/', (req, res) =>{
-    console.log('ALL TESTING',JSON.stringify(req.body.result));
+    if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
+        console.log('1 ',req.object, req.body);
+    }
+    console.log('2 ',JSON.stringify(req.object), JSON.stringify(req.body.object));
     console.log('ACTIOn NAME ', req.body.result.action);
     return actions[req.body.result.action](req, res);
 });

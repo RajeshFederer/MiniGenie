@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 app.post('/', (req, res) =>{
+    console.log('I', req);
     if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
         console.log('1 ',req.object, req.body);
     }

@@ -16,7 +16,7 @@ app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
         const app = new DialogflowApp({ request: req, response: res });
-        return app.handleRequest(googleActionMap);
+        app.handleRequest(googleActionMap);
         
     } else if(req.body.originalRequest.source == 'facebook'){
         if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){

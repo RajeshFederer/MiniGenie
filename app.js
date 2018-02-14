@@ -7,6 +7,7 @@ const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
 const googleActionMap = require('./lib/googleAction').actionMap;
 const subCategoryAction = require('./lib/googleAction').subCategoryAction;
+const getIncident = require('./lib/googleAction').getIncident;
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -16,12 +17,12 @@ app.use(bodyParser.json());
 app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
-        // if(req.body.result.action == "createIncident.category"){
-        //     return subCategoryAction(req, res);
-        // } else{
+         if(req.body.result.action == "getIncident"){
+             return getIncident(req, res);
+         } else{
             const app = new DialogflowApp({ request: req, response: res });
             app.handleRequest(googleActionMap);
-        //}
+        }
         
     } else if(req.body.originalRequest.source == 'facebook'){
         if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){

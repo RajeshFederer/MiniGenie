@@ -16,12 +16,12 @@ app.use(bodyParser.json());
 app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
-        if(req.body.result.action == "createIncident.category"){
-            return subCategoryAction(req, res);
-        } else{
+        // if(req.body.result.action == "createIncident.category"){
+        //     return subCategoryAction(req, res);
+        // } else{
             const app = new DialogflowApp({ request: req, response: res });
             app.handleRequest(googleActionMap);
-        }
+        //}
         
     } else if(req.body.originalRequest.source == 'facebook'){
         if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){

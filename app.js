@@ -17,7 +17,7 @@ app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
         if(req.body.result.action == "createIncident.category"){
-            return subCategoryAction(req, res);
+            subCategoryAction(req, res);
         } else{
             const app = new DialogflowApp({ request: req, response: res });
             app.handleRequest(googleActionMap);

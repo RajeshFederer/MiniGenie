@@ -5,7 +5,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
-const googleActionMap = require('./lib/googleAction');
+const googleActionMap = require('./lib/googleAction').actionMap;
+const subCategoryAction = require('./lib/googleAction').subCategoryAction;
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -15,8 +16,12 @@ app.use(bodyParser.json());
 app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
-        const app = new DialogflowApp({ request: req, response: res });
-        app.handleRequest(googleActionMap);
+        if(req.body.result.action == "createIncident.category"){
+            return subCategoryAction(req, res);
+        } else{
+            const app = new DialogflowApp({ request: req, response: res });
+            app.handleRequest(googleActionMap);
+        }
         
     } else if(req.body.originalRequest.source == 'facebook'){
         if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){

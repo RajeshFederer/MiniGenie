@@ -3,11 +3,12 @@
 const request = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
 const googleActionMap = require('./lib/googleAction').actionMap;
-const subCategoryAction = require('./lib/googleAction').subCategoryAction;
-const getIncident = require('./lib/googleAction').getIncident;
+const googleActionFunctions = requrie('./lib/googleAction').actionFunctions;
+
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -18,7 +19,9 @@ app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
          if(req.body.result.action == "getIncident"){
-             return getIncident(req, res);
+             return googleActionFunctions.getIncident(req, res);
+         } else if(req.body.result.action == 'createIncident.category - custom'){
+             return googleActionFunctions.categoryCustomAction(req, res);
          } else{
             const app = new DialogflowApp({ request: req, response: res });
             app.handleRequest(googleActionMap);

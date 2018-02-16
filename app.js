@@ -20,7 +20,7 @@ app.post('/', (req, res) =>{
     if(req.body.originalRequest.source == 'google'){
          if(req.body.result.action == "getIncident"){
              return googleActionFunctions.getIncident(req, res);
-         } else if(req.body.result.action == 'createIncident.category - custom'){
+         } else if(req.body.result.action == 'createIncidentcategory.custom'){
              return googleActionFunctions.categoryCustomAction(req, res);
          } else{
             const app = new DialogflowApp({ request: req, response: res });

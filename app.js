@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
 const googleActionMap = require('./lib/googleAction').actionMap;
-const googleActionFunctions = requrie('./lib/googleAction').actionFunctions;
+const googleActionFunctions = require('./lib/googleAction').actionFunctions;
 
 const app = express();
 const port = process.env.PORT || 3000;

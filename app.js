@@ -18,6 +18,7 @@ app.use(bodyParser.json());
 app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
+        console.log('ENTER');
          if(req.body.result.action == "getIncident"){
              return googleActionFunctions.getIncident(req, res);
          } else if(req.body.result.action == 'createIncidentcategory.custom'){

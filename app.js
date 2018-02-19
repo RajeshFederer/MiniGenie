@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
+const slackActions = require('./lib/slackAction');
 const googleActionMap = require('./lib/googleAction').actionMap;
 const googleActionFunctions = require('./lib/googleAction').actionFunctions;
 
@@ -37,8 +38,8 @@ app.post('/', (req, res) =>{
         // }
         console.log('ACTIOn NAME ', req.body.result.action);
         return facebookActions[req.body.result.action](req, res);
-    } else {
-        console.log('OUTSIDE');
+    } else if(req.body.originalRequest.source == 'slack'){
+        return slackAction[req.body.result.action](req, res);
     }
 });
 

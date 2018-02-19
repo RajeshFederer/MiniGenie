@@ -26,6 +26,7 @@ app.post('/', (req, res) =>{
             const params = app.getSelectedOption();
             const param = app.getContextArgument('actions_intent_option', 'OPTION').value;
             console.log('TEST', param, params);
+            req.subCategory = param;
             return googleActionFunctions.categoryCustomAction(req, res);
          } else{
             app.handleRequest(googleActionMap);

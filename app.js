@@ -25,6 +25,21 @@ app.post('/', (req, res) =>{
              return googleActionFunctions.categoryCustomAction(req, res);
          } else{
             const app = new DialogflowApp({ request: req, response: res });
+            googleActionMap.set(app.StandardIntents.OPTION, () => {
+                console.log('I am in');
+                const param = app.getSelectedOption();
+                if (!param) {
+                  app.ask('You did not select any item from the list or carousel');
+                } else if (param === 'MATH_AND_PRIME') {
+                  app.ask('42 is an abundant number because the sum of its…');
+                } else if (param === 'EGYPT') {
+                  app.ask('42 gods who ruled on the fate of the dead in the...');
+                } else if (param === 'RECIPES') {
+                  app.ask('Here\'s a beautifully simple recipe that\'s full...');
+                } else {
+                  app.ask('You selected an unknown item from the list or carousel');
+                }
+              });
             app.handleRequest(googleActionMap);
         }
     } else if(req.body.originalRequest.source == 'facebook'){

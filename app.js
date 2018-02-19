@@ -39,7 +39,7 @@ app.post('/', (req, res) =>{
         console.log('ACTIOn NAME ', req.body.result.action);
         return facebookActions[req.body.result.action](req, res);
     } else if(req.body.originalRequest.source == 'slack'){
-        return slackAction[req.body.result.action](req, res);
+        return slackActions[req.body.result.action](req, res);
     }
 });
 

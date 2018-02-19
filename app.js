@@ -19,16 +19,15 @@ app.post('/', (req, res) =>{
 
     if(req.body.originalRequest.source == 'google'){
         console.log('ENTER');
+        const app = new DialogflowApp({ request: req, response: res });
          if(req.body.result.action == "getIncident"){
              return googleActionFunctions.getIncident(req, res);
          } else if(req.body.result.action == 'createIncidentcategory.custom'){
-            const app = new DialogflowApp({ request: req, response: res });
             const params = app.getSelectedOption();
             const param = app.getContextArgument('actions_intent_option', 'OPTION').value;
             console.log('TEST', param, params);
             return googleActionFunctions.categoryCustomAction(req, res);
          } else{
-            const app = new DialogflowApp({ request: req, response: res });
             app.handleRequest(googleActionMap);
         }
     } else if(req.body.originalRequest.source == 'facebook'){

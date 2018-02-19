@@ -27,12 +27,10 @@ app.post('/', (req, res) =>{
             const app = new DialogflowApp({ request: req, response: res });
             app.handleRequest(googleActionMap);
         }
-        
     } else if(req.body.originalRequest.source == 'facebook'){
-        if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
-            console.log('1 ',req.object, req.body);
-        }
-        console.log('2 ',JSON.stringify(req.object), JSON.stringify(req.body.object));
+        // if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
+        //     console.log('1 ',req.object, req.body);
+        // }
         console.log('ACTIOn NAME ', req.body.result.action);
         return facebookActions[req.body.result.action](req, res);
     }

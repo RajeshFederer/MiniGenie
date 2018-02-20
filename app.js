@@ -33,6 +33,7 @@ app.post('/', (req, res) =>{
             app.handleRequest(googleActionMap);
         }
     } else if(req.body.originalRequest.source == 'facebook'){
+        console.log('IN');
         // if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
         //     console.log('1 ',req.object, req.body);
         // }

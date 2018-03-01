@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Auth0Strategy = require('passport-auth0');
 const passport = require('passport');
-const request = require('request');
+const requestModule = require('request');
 
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
@@ -103,7 +103,7 @@ app.listen(port, function(){
 });
 
 function sendWelcomeMessage(userData, recipientId){
-    request({
+    requestModule({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: data.fbPageAccessToken},
         method: 'POST',

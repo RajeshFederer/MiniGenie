@@ -92,10 +92,9 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/callback', passport.authenticate('auth0', {}), (req, res) => {
-    console.log('CALLBACK ' + redirectURI);
+    console.log('CALLBACK ' + redirectURI, req);
     res.redirect(redirectURI + '&authorization_code=123Raj12');
 });
-
 
 app.listen(port, function(){
     console.log('AGENT is running my app on  PORT: ' + port);

@@ -13,7 +13,7 @@ const googleActionMap = require('./lib/googleAction').actionMap;
 const googleActionFunctions = require('./lib/googleAction').actionFunctions;
 const data = require('./lib/data/inicdentData');
 
-const accountLinkingToken, redirectURI;
+let accountLinkingToken, redirectURI;
 const strategy = new Auth0Strategy(
     {
         domain: data.authO.domain,

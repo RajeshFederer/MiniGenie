@@ -85,7 +85,7 @@ app.get('/authorize', passport.authenticate('auth0', {
 }));
 
 app.get('/login', (req, res) => {
-    console.log('Body '+req.body, req.query);
+    console.log('Body ',req.query);
     accountLinkingToken = req.query.account_linking_token;
     redirectURI = req.query.redirect_uri;
     res.redirect('/authorize');

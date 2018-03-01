@@ -5,6 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Auth0Strategy = require('passport-auth0');
 const passport = require('passport');
+const request = require('request');
 
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
@@ -13,7 +14,7 @@ const googleActionMap = require('./lib/googleAction').actionMap;
 const googleActionFunctions = require('./lib/googleAction').actionFunctions;
 const data = require('./lib/data/inicdentData');
 
-let accountLinkingToken, redirectURI;
+let accountLinkingToken, redirectURI, recipientId;
 const strategy = new Auth0Strategy(
     {
         domain: data.authO.domain,
@@ -48,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/', (req, res) =>{
-
+    recipientId = recipientId = req.body.originalRequest.data.sender.id;
     if(req.body.originalRequest.source == 'google'){
         console.log('ENTER');
         const app = new DialogflowApp({ request: req, response: res });
@@ -93,9 +94,43 @@ app.get('/login', (req, res) => {
 
 app.get('/callback', passport.authenticate('auth0', {}), (req, res) => {
     console.log('CALLBACK ' + redirectURI, req);
+    sendWelcomeMessage(req.user.Profile._json, recipientId);
     res.redirect(redirectURI + '&authorization_code=123Raj12');
 });
 
 app.listen(port, function(){
     console.log('AGENT is running my app on  PORT: ' + port);
 });
+
+function sendWelcomeMessage(userData, recipientId){
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: data.fbPageAccessToken},
+        method: 'POST',
+        json: {
+            recipient: {
+                id: recipientId,
+            },
+            message :{
+                "text" :'Welcome '+ userData.name 
+            }
+        }
+      }, (error, response, body) => {
+        if (!error && response.statusCode === 200) {
+          // Message has been successfully received by Facebook.
+          console.log(
+            `Successfully sent message to ${endPoint} endpoint: `,
+            JSON.stringify(body)
+          );
+        } else {
+          // Message has not been successfully received by Facebook.
+          console.error(
+            `Failed calling Messenger API endpoint ${endPoint}`,
+            response.statusCode,
+            response.statusMessage,
+            body.error,
+            queryParams
+          );
+        }
+      });
+}

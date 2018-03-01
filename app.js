@@ -93,7 +93,7 @@ app.get('/login', (req, res) => {
 
 app.get('/callback', passport.authenticate('auth0', {}), (req, res) => {
     console.log('CALLBACK ' + redirectURI);
-    res.redirect(redirectURI );
+    res.redirect(redirectURI + '&authorization_code=123Raj12');
 });
 
 

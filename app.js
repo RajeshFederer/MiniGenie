@@ -94,7 +94,7 @@ app.get('/login', (req, res) => {
 
 app.get('/callback', passport.authenticate('auth0', {}), (req, res) => {
     console.log('CALLBACK ' + redirectURI, req, JSON.stringify(req.user));
-    sendWelcomeMessage(req.user.Profile._json, recipientId);
+    sendWelcomeMessage(req.user.displayName, recipientId);
     res.redirect(redirectURI + '&authorization_code=123Raj12');
 });
 
@@ -102,7 +102,7 @@ app.listen(port, function(){
     console.log('AGENT is running my app on  PORT: ' + port);
 });
 
-function sendWelcomeMessage(userData, recipientId){
+function sendWelcomeMessage(userName, recipientId){
     requestModule({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
         qs: {access_token: data.fbPageAccessToken},
@@ -112,7 +112,7 @@ function sendWelcomeMessage(userData, recipientId){
                 id: recipientId,
             },
             message :{
-                "text" :'Welcome '+ userData.name 
+                "text" :'Welcome '+ userName 
             }
         }
       }, (error, response, body) => {

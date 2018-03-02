@@ -94,7 +94,7 @@ app.get('/login', (req, res) => {
 
 app.get('/callback', passport.authenticate('auth0', {}), (req, res) => {
     console.log('CALLBACK ' + redirectURI, req);
-    sendWelcomeMessage(req.user.Profile._json, recipientId);
+   // sendWelcomeMessage(req.user.Profile._json, recipientId);
     res.redirect(redirectURI + '&authorization_code=123Raj12');
 });
 

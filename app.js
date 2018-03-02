@@ -119,17 +119,16 @@ function sendWelcomeMessage(userName, recipientId){
         if (!error && response.statusCode === 200) {
           // Message has been successfully received by Facebook.
           console.log(
-            `Successfully sent message to ${endPoint} endpoint: `,
+            `Successfully sent message to `,
             JSON.stringify(body)
           );
         } else {
           // Message has not been successfully received by Facebook.
           console.error(
-            `Failed calling Messenger API endpoint ${endPoint}`,
+            `Failed calling Messenger API endpoint`,
             response.statusCode,
             response.statusMessage,
-            body.error,
-            queryParams
+            body.error
           );
         }
       });

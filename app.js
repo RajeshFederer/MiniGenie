@@ -49,7 +49,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/', (req, res) =>{
-    recipientId = req.body.originalRequest.data.sender.id;
+    recipientId = recipientId || req.body.originalRequest.data.sender.id;
+    console.log('REC ', recipientId);
     if(req.body.originalRequest.source == 'google'){
         console.log('ENTER');
         const app = new DialogflowApp({ request: req, response: res });

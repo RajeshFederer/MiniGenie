@@ -50,7 +50,6 @@ app.use(passport.session());
 
 app.post('/', (req, res) =>{
     
-    console.log('REC ', recipientId);
     if(req.body.originalRequest.source == 'google'){
         console.log('ENTER');
         const app = new DialogflowApp({ request: req, response: res });
@@ -66,13 +65,13 @@ app.post('/', (req, res) =>{
             app.handleRequest(googleActionMap);
         }
     } else if(req.body.originalRequest.source == 'facebook'){
-        console.log('IN');
         recipientId = recipientId || req.body.originalRequest.data.sender.id;
+        console.log('REC ', recipientId);
         // if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
         //     console.log('1 ',req.object, req.body);
         // }
         console.log('ACTIOn NAME ', req.body.result.action);
-        return facebookActions[req.body.result.action](req, res);
+        return facebookActions[req.body.result.action](req, res, recipientId);
     } else if(req.body.originalRequest.source == 'slack'){
         return slackActions[req.body.result.action](req, res);
     }

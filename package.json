@@ -20,6 +20,7 @@
     "passport": "^0.4.0",
     "passport-auth0": "^0.6.1",
     "request": "^2.83.0",
-    "servicenow-nodejs": "^0.3.0"
+    "servicenow-nodejs": "^0.3.0",
+    "winston": "^3.0.0-rc2"
   }
 }

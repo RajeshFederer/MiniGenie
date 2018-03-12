@@ -49,7 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.post('/', (req, res) =>{
-    recipientId = recipientId || req.body.originalRequest.data.sender.id;
+    
     console.log('REC ', recipientId);
     if(req.body.originalRequest.source == 'google'){
         console.log('ENTER');
@@ -67,6 +67,7 @@ app.post('/', (req, res) =>{
         }
     } else if(req.body.originalRequest.source == 'facebook'){
         console.log('IN');
+        recipientId = recipientId || req.body.originalRequest.data.sender.id;
         // if(req.object.page.entry.messaging.postback || req.body.object.page.entry.messaging.postback){
         //     console.log('1 ',req.object, req.body);
         // }

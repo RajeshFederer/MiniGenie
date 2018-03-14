@@ -109,7 +109,8 @@ app.get('/showlog', (req, res) =>{
     if(req.query.senderId){
         fileName = "USER-" + req.query.senderId;
     }
-    fs.readFile(path.join(__dirname , "/lib/logs/"+ type+"/"+ fileName+".log"), (err, resp) =>{
+    fs.readFile(path.join(__dirname , "/lib/logs/"+ type+"/"+ fileName+".log"), "utf8", (err, resp) =>{
+        console.log('IAM ', resp);
         if(err) {
             return res.json({statusCode:500, message : err});
         } else {
@@ -153,3 +154,4 @@ function sendWelcomeMessage(userName, recipientId){
         }
       });
 }
+console.log('YAY',__dirname);

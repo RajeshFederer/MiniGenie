@@ -7,6 +7,7 @@ const Auth0Strategy = require('passport-auth0');
 const passport = require('passport');
 const requestModule = require('request');
 const path = require('path');
+const fs = require('fs');
 
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');

@@ -110,11 +110,11 @@ app.get('/showlog', (req, res) =>{
         fileName = "USER-" + req.query.senderId;
     }
     fs.readFile(path.join(__dirname , "/lib/logs/"+ type+"/"+ fileName+".log"), "utf8", (err, resp) =>{
-        console.log('IAM ', resp);
+        console.log('CHATLOG RESP ', err, resp);
         if(err) {
             return res.json({statusCode:500, message : err});
         } else {
-            return res.json({statusCode: 200, message : resp.body})
+            return res.json({statusCode: 200, message : resp})
         }
     });
 });
@@ -154,4 +154,3 @@ function sendWelcomeMessage(userName, recipientId){
         }
       });
 }
-console.log('YAY',__dirname);

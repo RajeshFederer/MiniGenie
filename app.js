@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const Auth0Strategy = require('passport-auth0');
 const passport = require('passport');
 const requestModule = require('request');
+const path = require('path');
 
 const DialogflowApp = require('actions-on-google').DialogflowApp;
 const facebookActions = require('./lib/facebookAction');
@@ -97,6 +98,23 @@ app.get('/callback', passport.authenticate('auth0', {}), (req, res) => {
     console.log('CALLBACK ' + redirectURI, req, JSON.stringify(req.user));
     sendWelcomeMessage(req.user.displayName, recipientId);
     res.redirect(redirectURI + '&authorization_code=123Raj12');
+});
+
+app.get('/showlog', (req, res) =>{
+    let type = "fb", fileName = "USER-2131494240194398";
+    if(req.query.type){
+        type = req.query.type;
+    }
+    if(req.query.senderId){
+        fileName = "USER-" + req.query.senderId;
+    }
+    fs.readFile(path.join(__dirname , "/lib/logs/"+ type+"/"+ fileName+".log"), (err, resp) =>{
+        if(err) {
+            return res.json({statusCode:500, message : err});
+        } else {
+            return res.json({statusCode: 200, message : resp.body})
+        }
+    });
 });
 
 app.listen(port, function(){

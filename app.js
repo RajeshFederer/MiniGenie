@@ -114,7 +114,7 @@ app.get('/showlog', (req, res) =>{
         if(err) {
             return res.json({statusCode:500, message : err});
         } else {
-            return res.json({statusCode: 200, message : JSON.parse(resp)})
+            return res.json({statusCode: 200, message : resp})
         }
     });
 });
